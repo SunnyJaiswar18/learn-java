@@ -361,6 +361,75 @@ body {
 
 
 
+ /* media query  start  */
+/* Sidebar Enhancements */
+.sidebar {
+  overflow-y: auto; /* Add scroll for long content */
+  height: calc(100vh - 50px); /* Adjust to fit below the navbar */
+}
+
+/* Ensure Sidebar Links Stand Out */
+.sidebar a:hover {
+  background-color: #e0e0e0 !important; /* Add hover effect */
+}
+
+/* Main Section Adjustments */
+.mainSection {
+  margin-top: 60px; /* Ensure space below navbar */
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+}
+
+/* Footer Adjustment for Fixed Placement */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #4caf50; /* Green background to match theme */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+
+/* For Mobile Devices */
+@media only screen and (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-right: none;
+  }
+
+  .mainSection {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  footer {
+    position: static;
+  }
+}
+
+/* For Tablets (601px to 1024px) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .sidebar {
+    width: 200px; /* Adjust sidebar width */
+  }
+
+  .mainSection {
+    margin-left: 210px;
+    padding: 20px;
+  }
+}
+
 
 
 
