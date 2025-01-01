@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Java</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="#" class="logo">♨️Learn Java</a>
+    </div>
+    <div class="navbar-center">
+        <a href="#">Category</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="navbar-right">
+        <button class="login-btn">Login</button>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h3>JavaTutorial</h3>
+    <a href="../core-java/Java-Intro.html"> Java Intro</a>
+    <a href="../core-java/Java-Get-Started.html"> Java Get Started</a>
+    <a href="../core-java/Java-Syntax.html"> Java Syntax</a>
+    <a href="../core-java/Java-Output.html"> Java Output</a>
+    <a href="../core-java/Java-Comments.html"> Java Comments</a>
+    <a href="../core-java/Java-Variables.html"> Java Variables</a>
+    <a href="../core-java/Java-Data-Types.html"> Java Data Types</a>
+    <a href="../core-java/Java-Type-Casting.html"> Java Type Casting</a>
+    <a href="../core-java/Java-Operators.html"> Java Operators</a>
+    <a href="../core-java/Java-Math.html"> Java Math</a>
+    <a href="../core-java/Java-Booleans.html"> Java Booleans</a>
+    <h4> Java Control Statements</h4>
+    <a href="../core-java/Java-If...Else.html"> Java If...Else</a>
+    <a href="../core-java/Java-Switch.html"> Java Switch</a>
+    <a href="../core-java/Java-For-Loop.html"> Java For Loop</a>
+    <a href="../core-java/Java-While-Loop.html"> Java While Loop</a>
+    <a href="../core-java/Java-Do-While-Loop.html"> Java Do While Loop</a>
+    <a href="../core-java/Java-Break.html"> Java Break</a>
+    <a href="../core-java/Java-Continue.html"> Java Continue</a>
+    <h3> Java Object Class</h3>
+    <a href="#"> Java OOPs Concept</a>
+    <a href="#"> Java Object and Class</a>
+    <a href="#"> Java Method</a>
+    <a href="#"> Java Constructors</a>
+    <a href="#"> Java Static Keyword</a>
+    <a href="#"> Java This Keyword</a>
+    <a href="#"> Java Inheritance</a>
+
+
+    <div class="dropdown">
+        <a class="dropdown-btn dropdown-btn-aro" href="#IS-A Relationship">5. IS-A Relationship (Inheritance)</a>
+        <div class="dropdown-content">
+            <a href="#multiple-inheritance">Multiple Inheritance</a>
+            <a href="#cyclic-inheritance">Cyclic Inheritance</a>
+        </div>
+    </div>
+</div>
+<!-- Sidebar close -->
+
+<!-- mai section start-->
+<div class="mainSection">
+    <div class="w3-example">
+        <h2 class="heading-distance">Java Switch</h2>
+        <p>The <code>switch</code> statement in Java is used as an alternative to writing multiple <code>if...else</code> statements. It allows you to select one of many code blocks to be executed, based on the value of a variable.</p>
+        <p>Syntax:</p>
+        <div class="w3-code notranslate htmlHigh">
+            <h3><pre>
+switch(expression) {
+    case x:
+        // code block
+        break;
+    case y:
+        // code block
+        break;
+    default:
+        // code block
+}
+            </pre></h3>
+        </div>
+        <p>This is how it works:</p>
+        <ul>
+            <li>The <code>switch</code> expression is evaluated once.</li>
+            <li>The value of the expression is compared with the values of each <code>case</code>.</li>
+            <li>If a match is found, the associated block of code is executed.</li>
+            <li>The <code>break</code> and <code>default</code> keywords are optional.</li>
+        </ul>
+        <p>The example below uses the weekday number to determine the weekday name:</p>
+    </div>
+
+    <div class="w3-example">
+        <h2>Example</h2>
+        <p>In this example, <code>day</code> is an integer variable. Depending on its value, a specific day of the week will be printed.</p>
+        <div class="w3-code notranslate htmlHigh">
+            <h3><pre>
+int day = 4;
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    case 3:
+        System.out.println("Wednesday");
+        break;
+    case 4:
+        System.out.println("Thursday");
+        break;
+    case 5:
+        System.out.println("Friday");
+        break;
+    case 6:
+        System.out.println("Saturday");
+        break;
+    case 7:
+        System.out.println("Sunday");
+        break;
+}
+// Outputs "Thursday" (day 4)
+            </pre></h3>
+        </div>
+    </div>
+
+    <div class="w3-example">
+        <h2>The <code>break</code> Keyword</h2>
+        <p>When Java reaches a <code>break</code> keyword, it exits the <code>switch</code> block. This stops the execution of further code and case testing within the block.</p>
+        <p>When a match is found and the associated code has executed, a <code>break</code> statement will terminate the <code>switch</code> block. This helps save execution time by avoiding unnecessary checks.</p>
+    </div>
+</div>
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Learn Java - All rights reserved.</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="/javascript/scripts.js"></script>
+</body>
+</html>
