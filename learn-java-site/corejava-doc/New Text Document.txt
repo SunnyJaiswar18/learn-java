@@ -1,0 +1,421 @@
+1. What is Data hiding?
+
+2. What is Abstraction?
+
+3. What is Encapsulation?
+
+4. Explain the advantages and disadvantages of Encapsulation?
+
+5. What is tightly encapsulated class?
+
+6. What is IS-A relationship?
+
+7. Which keyword is used for IS-A relationship?
+
+8. What are various advantages of IS-A relationship?
+
+9. Explain about HAS-A relationship?
+
+10. What is composition?
+
+11. What is aggregation?
+
+12. What is method signature?
+
+13. What is overloading?
+
+14. What are various rules satisfied by overloaded methods?
+
+15. What is static polymorphism (or) compile-time polymorphism (or) early binding?
+
+16. Differentiate IS-A and HAS-A relationships?
+
+17. Is it possible to overload main() method?
+
+18. In overloading whether jvm or compiler is responsible for method resolution?
+
+19. What is overriding?
+
+20. What is runtime polymorphism or dynamic polymorphism or late binding?
+
+21. What are various rules satisfied by overriding methods?
+
+22. Is it possible to override the following methods ? final methods , abstract methods       synchronized methods ,native methods ,strictfp methods , private methods .
+
+23. What are co-variant return types?
+
+24. While overriding is it compulsory to maintain same return type?
+
+25. In overriding who is responsible for method resolution?
+
+26. What is dynamic method dispatch?
+
+27. If parent class method throws some checked exception while overriding is it
+       compulsory should throw child class method the same checked exception?
+
+28. Is it possible to overriding constructor?
+
+29. Is it possible to overriding non-abstract method as abstract ?
+
+30. Is it possible to override a var-arg method with a general method?
+
+31. Is it possible to override static method?
+
+32. What is method hiding?
+
+33. Explain differences b/w overriding and method hiding?
+
+34. Is it possible to override main() method?
+
+35. Is it possible to override a variable?
+
+36. Who is responsible for variable resolution?
+
+37. What are key differences b/w overriding and overloading?
+
+38. Explain various activities which are executed while loading the class?
+
+39. When ever we are loading child class is it required to load parent class?
+
+40. When ever we are loading parent class is it required to load child class?
+
+41. What is purpose of static block and explain its requirement with examples?
+
+42. Is it possible to take multiple static blocks in the same java class?
+
+43. When the static blocks will be executed?
+
+44. Whit out using main() method is it possible to print some statements to console?
+
+45. Whit out using main() and static blocks is it possible to print some statements?
+
+46. What is instance block when it will be executed?
+
+47. Difference b/w instance block and static block?
+
+48. When ever we are creating an object what are various steps will be executed
+       internally?
+
+49. Difference b/w constructor and instance block?
+
+50. What is coupling?
+
+51. Is it recommended tight coupling or loose coupling?
+
+52. What is cohesion?
+
+53. Is it recommended high cohesion or low cohesion?
+
+54. Explain about object type casting and what are various rules we have to follow while        performing type casting?
+
+55. Is it possible to type cast parent object to the child type?
+
+56. Is it possible to type cast child object to the parent type?
+
+57. Explain the main important oops concepts?
+
+58. What is the purpose of constructor?
+
+59. Explain about default constructor and its prototype?
+
+60. Is compiler generates default constructor always?
+
+61. Is it possible to take return type for the constructor?
+
+62. If we are taking return type to the constructor what will happen?
+
+63. Explain about super() and this() ?
+
+64. Is it possible to overload constructors?
+
+65. Is inheritance concept applicable for constructor?
+
+66. What are various modifiers applicable for constructors?
+
+67. Where we can use private constructors?
+
+68. What is singleton class and give an example?
+
+69. Is it possible to create our own singleton class and explain the process?
+
+70. What is factory method?
+
+71. Explain about recursive constructor invocation?
+
+72. If parent class constructor throws some checked exception is it compulsory to require
+       to throw that exception by child class constructor?
+
+73. Is the first line in constructor is always super?
+
+74. Is it possible to write a constructor in abstract class?
+
+75. We can’t create an object of abstract class what is the need of constructor in abstract
+       class?
+
+76. Is it possible to place constructor in an interface?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. What is Data hiding?
+
+Answer: Data hiding is an object-oriented programming concept where internal object details are hidden from the outside world, allowing access only through public methods. It enhances security by restricting direct access to private data.
+
+2. What is Abstraction?
+
+Answer: Abstraction is the process of hiding implementation details and showing only essential features of an object. It is implemented using abstract classes or interfaces.
+
+3. What is Encapsulation?
+
+Answer: Encapsulation is the process of bundling data (fields) and methods that operate on that data into a single unit, like a class. It provides controlled access using access modifiers (e.g., private, public).
+
+4. Explain the advantages and disadvantages of Encapsulation?
+
+Answer:Advantages:
+
+Enhances security and data protection.
+
+Improves code maintainability.
+
+Promotes modular design.Disadvantages:
+
+Slightly increases code complexity due to access control.
+
+5. What is a tightly encapsulated class?
+
+Answer: A class is tightly encapsulated if all its variables are private and accessed only through public getter and setter methods.
+
+6. What is IS-A relationship?
+
+Answer: An IS-A relationship represents inheritance in object-oriented programming where one class derives from another (e.g., Dog IS-A Animal).
+
+7. Which keyword is used for IS-A relationship?
+
+Answer: The extends keyword.
+
+8. What are various advantages of IS-A relationship?
+
+Answer:
+
+Promotes code reusability.
+
+Supports polymorphism.
+
+Simplifies code structure.
+
+9. Explain about HAS-A relationship?
+
+Answer: A HAS-A relationship represents composition where one class contains an object of another class (e.g., Car HAS-A Engine).
+
+10. What is composition?
+
+Answer: Composition is a design principle where a class is composed of one or more objects of other classes, representing a "part-of" relationship.
+
+11. What is aggregation?
+
+Answer: Aggregation is a form of composition where the contained objects can exist independently of the container object.
+
+12. What is method signature?
+
+Answer: A method signature includes the method name and parameter list (e.g., void display(String name)).
+
+13. What is overloading?
+
+Answer: Overloading allows methods with the same name to exist but with different parameter lists within the same class.
+
+14. What are various rules satisfied by overloaded methods?
+
+Answer:
+
+Same method name.
+
+Different parameter lists (type, number, or order).
+
+Can have different return types.
+
+15. What is static polymorphism (or compile-time polymorphism)?
+
+Answer: It is achieved through method overloading, where the method to be executed is determined at compile time.
+
+16. Differentiate IS-A and HAS-A relationships?
+
+Answer:
+
+IS-A: Inheritance (e.g., Dog IS-A Animal).
+
+HAS-A: Composition (e.g., Car HAS-A Engine).
+
+17. Is it possible to overload the main() method?
+
+Answer: Yes, but only the standard main(String[] args) method is used as the program entry point.
+
+18. In overloading, whether JVM or compiler is responsible for method resolution?
+
+Answer: The compiler is responsible.
+
+19. What is overriding?
+
+Answer: Overriding allows a subclass to provide a specific implementation of a method already defined in its parent class.
+
+20. What is runtime polymorphism or dynamic polymorphism?
+
+Answer: It is achieved through method overriding, where the method to be executed is determined at runtime.
+
+21. What are various rules satisfied by overriding methods?
+
+Answer:
+
+Same method name, parameter list, and return type.
+
+The overriding method cannot reduce visibility.
+
+The overriding method can throw fewer or no exceptions.
+
+22. Is it possible to override the following methods?
+
+Answer:
+
+Final methods: No.
+
+Abstract methods: Yes.
+
+Synchronized methods: Yes.
+
+Native methods: Yes.
+
+Strictfp methods: Yes.
+
+Private methods: No.
+
+23. What are co-variant return types?
+
+Answer: In overriding, the return type of the overridden method in the child class can be a subclass of the return type in the parent class.
+
+24. While overriding, is it compulsory to maintain the same return type?
+
+Answer: Not always. Co-variant return types are allowed.
+
+25. In overriding, who is responsible for method resolution?
+
+Answer: The JVM at runtime.
+
+26. What is dynamic method dispatch?
+
+Answer: Dynamic method dispatch is the process where the JVM determines which overridden method to call at runtime.
+
+27. If the parent class method throws some checked exception, is it compulsory for the child class method to throw the same?
+
+Answer: No, the child class method can throw the same or a subclass of the exception or no exception at all.
+
+28. Is it possible to override a constructor?
+
+Answer: No, constructors cannot be overridden.
+
+29. Is it possible to override a non-abstract method as abstract?
+
+Answer: No, a non-abstract method cannot be overridden as abstract.
+
+30. Is it possible to override a var-arg method with a general method?
+
+Answer: No, the var-arg method takes precedence.
+
+31. Is it possible to override a static method?
+
+Answer: No, static methods are hidden, not overridden.
+
+32. What is method hiding?
+
+Answer: When a static method in the parent class is redefined in a child class, it is called method hiding.
+
+33. Explain differences between overriding and method hiding?
+
+Answer:
+
+Overriding: Works with instance methods.
+
+Hiding: Works with static methods.
+
+34. Is it possible to override the main() method?
+
+Answer: No, main() is static, so it can only be hidden.
+
+35. Is it possible to override a variable?
+
+Answer: No, variables are shadowed, not overridden.
+
+36. Who is responsible for variable resolution?
+
+Answer: The compiler.
+
+37. What are key differences between overriding and overloading?
+
+Answer:
+
+Overloading: Same method name, different parameters.
+
+Overriding: Same method name, parameters, and return type in parent and child.
+
+38. Explain various activities executed while loading the class?
+
+Answer:
+
+Class loader loads the class.
+
+Memory is allocated.
+
+Static blocks and static variables are initialized.
+
+39. Whenever we are loading a child class, is it required to load the parent class?
+
+Answer: Yes, the parent class is loaded first.
+
+40. Whenever we are loading a parent class, is it required to load the child class?
+
+Answer: No, the child class is not loaded unless explicitly required.
+
+41. What is the purpose of the static block, and explain its requirement with examples?
+
+Answer: A static block is used to initialize static variables and execute logic at the time of class loading. Example:
+
+static {
+    System.out.println("Static block executed");
+}
+
+42. Is it possible to take multiple static blocks in the same Java class?
+
+Answer: Yes, multiple static blocks are allowed, and they execute in the order they are defined.
+
+43. When will the static blocks be executed?
+
+Answer: Static blocks are executed when the class is loaded into memory.
+
+44. Without using the main() method, is it possible to print some statements to the console?
+
+Answer: Yes, using a static block.
+
+45. Without using main() and static blocks, is it possible to print some statements?
+
+Answer: No, main() or static blocks are required for execution.
+
+46. What is an instance block, and when will it be executed?
+
+Answer: An instance block is executed each time an object of the class is created, before the constructor.
+
+47. Difference between instance block and static block?
+
+Answer:
+
+Static block: Executes once when the class is loaded.
+
+Instance block: Executes every time an object is created.

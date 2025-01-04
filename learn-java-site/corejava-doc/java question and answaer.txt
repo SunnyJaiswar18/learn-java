@@ -1,0 +1,186 @@
+2) What is the Difference between Interface and Abstract Class?
+
+Feature: Methods
+
+Interface: Can have abstract, default, static methods (from Java 8 onwards).
+
+Abstract Class: Can have both abstract and concrete methods.
+
+Feature: Inheritance
+
+Interface: Supports multiple inheritance.
+
+Abstract Class: Supports single inheritance.
+
+Feature: Fields
+
+Interface: Only public, static, and final.
+
+Abstract Class: Can have instance variables.
+
+Feature: Use Case
+
+Interface: Defines a contract for implementation.
+
+Abstract Class: Used for partial abstraction.
+
+Example:
+
+interface Shape {
+    void draw(); // Abstract method
+}
+
+abstract class Animal {
+    abstract void sound(); // Abstract method
+    void eat() {           // Concrete method
+        System.out.println("Eating...");
+    }
+}
+
+3) When to Use Interface, Abstract Class, and Concrete Class?
+
+Interface: When unrelated classes should implement common behavior.Example: Runnable, Comparable.
+
+Abstract Class: When related classes share common behavior and partial implementation is needed.Example: Animal class.
+
+Concrete Class: When full implementation is required.Example: Utility classes like Math.
+
+4) What Modifiers are Applicable for Interfaces?
+
+Modifiers: public, abstract.
+
+Example:
+
+public interface Vehicle {
+    void move();
+}
+
+5) Explain about Interface Variables and What Modifiers are Applicable for Them?
+
+Modifiers: public, static, final (implicitly).
+
+Behavior: Cannot be changed (constant).
+
+Example:
+
+interface Constants {
+    int MAX_SPEED = 120; // public, static, and final
+}
+
+6) Explain about Interface Methods and What Modifiers are Applicable for Them?
+
+Modifiers: public, abstract (by default).Since Java 8, default and static are also allowed.
+
+Example:
+
+interface Calculator {
+    int add(int a, int b); // Abstract method
+    default void show() {  // Default method
+        System.out.println("Default method in interface");
+    }
+}
+
+7) Can Java Class Implement Any Number of Interfaces?
+
+Yes, Java supports multiple interface implementation.
+
+Example:
+
+interface A { void methodA(); }
+interface B { void methodB(); }
+
+class C implements A, B {
+    public void methodA() { System.out.println("A"); }
+    public void methodB() { System.out.println("B"); }
+}
+
+8) If 2 Interfaces Have Methods with Same Signature but Different Return Types?
+
+Not Allowed: Java does not support this; it causes a compilation error.
+
+
+9) Difference Between extends and implements Keyword?
+
+Feature
+
+extends
+
+implements
+
+Use Case
+
+Inherits from a class or an interface.
+
+Implements an interface.
+
+Multiple Inheritance
+
+Not allowed with classes.
+
+Allowed.
+
+Example:
+
+class A { }
+class B extends A { } // extends for class
+interface C { }
+class D implements C { } // implements for interface
+
+10) Why Does an Abstract Class Have a Constructor?
+
+Abstract classes can have constructors to initialize fields when inherited.
+
+Example:
+
+abstract class Animal {
+    Animal() { System.out.println("Animal created."); }
+}
+class Dog extends Animal { }
+
+11) What is a Marker Interface?
+
+Definition: An interface with no methods or fields, used to convey metadata.
+
+Example:
+
+Serializable indicates an object can be serialized.
+
+class MyClass implements Serializable { }
+
+12) What is an Adapter Class and Its Usage?
+
+Definition: A class that provides default implementations for an interface.
+
+Use Case: When a class needs to implement an interface but doesn't require all methods.
+
+Example:
+
+abstract class MouseAdapter implements MouseListener {
+    public void mouseClicked(MouseEvent e) { }
+    public void mousePressed(MouseEvent e) { }
+}
+
+13) Why Use Interfaces When Abstract Classes Can Have Only Abstract Methods?
+
+Purpose: Interfaces support multiple inheritance, while abstract classes do not.
+
+Example:
+
+interface Printable { void print(); }
+interface Scannable { void scan(); }
+
+class Printer implements Printable, Scannable {
+    public void print() { System.out.println("Printing..."); }
+    public void scan() { System.out.println("Scanning..."); }
+}
+
+14) Where to Use Marker Interface, Abstract Class, Interface, and Adapter Class?
+
+Marker Interface: For metadata (Serializable).
+
+Abstract Class: For shared functionality (e.g., Animal superclass).
+
+Interface: To define behavior (e.g., Runnable).
+
+Adapter Class: For convenience in implementing listener interfaces.
+
