@@ -398,12 +398,13 @@ footer {
     text-align: center;
   }
 
-  .sidebar {
-    position: static;
-    width: 100%;
-    height: auto;
-    padding: 10px;
-    border-right: none;
+ .sidebar {
+    width: 115px;
+        height: 100vh;
+        padding: 10px;
+        border-right: none;
+        overflow-y: auto;
+        overflow-x: hidden;
   }
 
   .mainSection {
@@ -515,6 +516,7 @@ footer {
     font-size: 1.3rem; /* Adjust heading size */
   }
 }
+
 
 
 
