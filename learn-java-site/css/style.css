@@ -411,10 +411,6 @@ footer {
     margin-left: 0;
     padding: 10px;
   }
-
-  footer {
-    position: static;
-  }
 }
 
 /* For Tablets (601px to 1024px) */
@@ -516,6 +512,7 @@ footer {
     font-size: 1.3rem; /* Adjust heading size */
   }
 }
+
 
 
 
