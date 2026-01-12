@@ -14,7 +14,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f6f8;
-    overflow-x: hidden; /* KEY FIX */
+    overflow-x: hidden;
 }
 
 .container {
@@ -23,14 +23,20 @@ body {
     margin: auto;
 }
 
-/* PAGINATION */
+/* PAGINATION (STICKY TOP) */
 .pagination {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #f4f6f8;
+
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    flex-wrap: wrap; /* IMPORTANT */
+    flex-wrap: wrap;
+    padding: 10px 0;
 }
 
 .pagination button {
@@ -57,12 +63,7 @@ body {
     border: 1px solid #ccc;
 }
 
-/* CARDS GRID */
-/* .cards {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-} */
-
+/* CARD */
 .card {
     background: #fff;
     border-radius: 8px;
@@ -71,7 +72,6 @@ body {
     width: 39%;
     height: 266px;
     margin: 88px auto;
-
 }
 
 .card img {
@@ -88,16 +88,12 @@ body {
 .card-content a {
     text-decoration: none;
     color: #007bff;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 /* TABLET */
 @media (max-width: 768px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .pagination button {
         padding: 8px 14px;
         font-size: 13px;
@@ -106,10 +102,6 @@ body {
 
 /* MOBILE */
 @media (max-width: 480px) {
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
     .pagination {
         gap: 6px;
     }
@@ -124,6 +116,7 @@ body {
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -143,91 +136,118 @@ body {
 </div>
 
 <script>
-    const cardsPerPage = 9;
-    const totalCards = 45;
-    let currentPage = 1;
+const cardsPerPage = 6;
+let currentPage = 1;
 
-    const data = Array.from({ length: totalCards }, (_, i) => ({
-        title: "Card " + (i + 1),
-        img: "https://picsum.photos/400/300?random=" + (i + 1),
-        link: "#"
-    }));
+/* ✅ HARD-CODED IMAGE & LINK URLS */
+const data = [
+    { title: "Card 1", img: "https://picsum.photos/id/101/400/300", link: "https://example.com/1" },
+    { title: "Card 2", img: "https://picsum.photos/id/102/400/300", link: "https://example.com/2" },
+    { title: "Card 3", img: "https://picsum.photos/id/103/400/300", link: "https://example.com/3" },
+    { title: "Card 4", img: "https://picsum.photos/id/104/400/300", link: "https://example.com/4" },
+    { title: "Card 5", img: "https://picsum.photos/id/105/400/300", link: "https://example.com/5" },
+    { title: "Card 6", img: "https://picsum.photos/id/106/400/300", link: "https://example.com/6" },
+    { title: "Card 7", img: "https://picsum.photos/id/107/400/300", link: "https://example.com/7" },
+    { title: "Card 8", img: "https://picsum.photos/id/108/400/300", link: "https://example.com/8" },
+    { title: "Card 9", img: "https://picsum.photos/id/109/400/300", link: "https://example.com/9" },
+    { title: "Card 10", img: "https://picsum.photos/id/110/400/300", link: "https://example.com/10" },
+    { title: "Card 11", img: "https://picsum.photos/id/111/400/300", link: "https://example.com/11" },
+    { title: "Card 12", img: "https://picsum.photos/id/112/400/300", link: "https://example.com/12" },
+    { title: "Card 13", img: "https://picsum.photos/id/113/400/300", link: "https://example.com/13" },
+    { title: "Card 14", img: "https://picsum.photos/id/114/400/300", link: "https://example.com/14" },
+    { title: "Card 15", img: "https://picsum.photos/id/115/400/300", link: "https://example.com/15" },
+    { title: "Card 16", img: "https://picsum.photos/id/116/400/300", link: "https://example.com/16" },
+    { title: "Card 17", img: "https://picsum.photos/id/117/400/300", link: "https://example.com/17" },
+    { title: "Card 18", img: "https://picsum.photos/id/118/400/300", link: "https://example.com/18" },
+    { title: "Card 19", img: "https://picsum.photos/id/119/400/300", link: "https://example.com/19" },
+    { title: "Card 20", img: "https://picsum.photos/id/120/400/300", link: "https://example.com/20" },
+    { title: "Card 21", img: "https://picsum.photos/id/121/400/300", link: "https://example.com/21" },
+    { title: "Card 22", img: "https://picsum.photos/id/122/400/300", link: "https://example.com/22" },
+    { title: "Card 23", img: "https://picsum.photos/id/123/400/300", link: "https://example.com/23" },
+    { title: "Card 24", img: "https://picsum.photos/id/124/400/300", link: "https://example.com/24" },
+    { title: "Card 25", img: "https://picsum.photos/id/125/400/300", link: "https://example.com/25" },
+    { title: "Card 26", img: "https://picsum.photos/id/126/400/300", link: "https://example.com/26" },
+    { title: "Card 27", img: "https://picsum.photos/id/127/400/300", link: "https://example.com/27" },
+    { title: "Card 28", img: "https://picsum.photos/id/128/400/300", link: "https://example.com/28" },
+    { title: "Card 29", img: "https://picsum.photos/id/129/400/300", link: "https://example.com/29" },
+    { title: "Card 30", img: "https://picsum.photos/id/130/400/300", link: "https://example.com/30" }
+];
 
-    const cardContainer = document.getElementById("cardContainer");
-    const pageNumbers = document.getElementById("pageNumbers");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const pageInput = document.getElementById("pageInput");
-    const goBtn = document.getElementById("goBtn");
+const cardContainer = document.getElementById("cardContainer");
+const pageNumbers = document.getElementById("pageNumbers");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const pageInput = document.getElementById("pageInput");
+const goBtn = document.getElementById("goBtn");
 
-    const totalPages = Math.ceil(data.length / cardsPerPage);
+const totalPages = Math.ceil(data.length / cardsPerPage);
 
-    function renderCards() {
-        cardContainer.innerHTML = "";
-        const start = (currentPage - 1) * cardsPerPage;
-        const end = start + cardsPerPage;
+function renderCards() {
+    cardContainer.innerHTML = "";
+    const start = (currentPage - 1) * cardsPerPage;
+    const end = start + cardsPerPage;
 
-        data.slice(start, end).forEach(item => {
-            cardContainer.innerHTML += `
-                <div class="card">
-                    <img src="${item.img}" alt="${item.title}">
-                    <div class="card-content">
-                        <a href="${item.link}">${item.title}</a>
-                    </div>
+    data.slice(start, end).forEach(item => {
+        cardContainer.innerHTML += `
+            <div class="card">
+                <img src="${item.img}" alt="${item.title}">
+                <div class="card-content">
+                    <a href="${item.link}">${item.title}</a>
                 </div>
-            `;
-        });
+            </div>
+        `;
+    });
+}
+
+function renderPagination() {
+    pageNumbers.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add("active");
+
+        btn.onclick = () => {
+            currentPage = i;
+            updateUI();
+        };
+
+        pageNumbers.appendChild(btn);
     }
 
-    function renderPagination() {
-        pageNumbers.innerHTML = "";
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+}
 
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement("button");
-            btn.textContent = i;
-            if (i === currentPage) btn.classList.add("active");
-
-            btn.onclick = () => {
-                currentPage = i;
-                updateUI();
-            };
-
-            pageNumbers.appendChild(btn);
-        }
-
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages;
+prevBtn.onclick = () => {
+    if (currentPage > 1) {
+        currentPage--;
+        updateUI();
     }
+};
 
-    prevBtn.onclick = () => {
-        if (currentPage > 1) {
-            currentPage--;
-            updateUI();
-        }
-    };
-
-    nextBtn.onclick = () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            updateUI();
-        }
-    };
-
-    goBtn.onclick = () => {
-        const page = parseInt(pageInput.value);
-        if (page >= 1 && page <= totalPages) {
-            currentPage = page;
-            updateUI();
-        }
-        pageInput.value = "";
-    };
-
-    function updateUI() {
-        renderCards();
-        renderPagination();
+nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+        currentPage++;
+        updateUI();
     }
+};
 
-    updateUI();
+goBtn.onclick = () => {
+    const page = parseInt(pageInput.value);
+    if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        updateUI();
+    }
+    pageInput.value = "";
+};
+
+function updateUI() {
+    renderCards();
+    renderPagination();
+}
+
+updateUI();
 </script>
 
 </body>
