@@ -1,95 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Add / Remove Card</title>
+<meta charset="UTF-8">
+<title>Responsive Pagination – No Scroll</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            padding: 20px;
-        }
+<style>
+/* RESET */
+* {
+    box-sizing: border-box;
+}
 
-        h2 {
-            text-align: center;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    overflow-x: hidden; /* KEY FIX */
+}
 
-        .btn-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.container {
+    max-width: 1200px;
+    padding: 15px;
+    margin: auto;
+}
 
-        button {
-            padding: 10px 18px;
-            margin: 5px;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+/* PAGINATION */
+.pagination {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap; /* IMPORTANT */
+}
 
-        .add-btn {
-            background-color: #28a745;
-            color: white;
-        }
+.pagination button {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    background: #ddd;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-        }
+.pagination button.active {
+    background: #007bff;
+    color: white;
+}
 
-        .cards-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
+.pagination input {
+    width: 65px;
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
 
-        .card {
-            width: 200px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-    </style>
+/* CARDS GRID */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 10px;
+    text-align: center;
+}
+
+.card-content a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pagination button {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .pagination {
+        gap: 6px;
+    }
+
+    .pagination input {
+        width: 55px;
+    }
+
+    .card img {
+        height: 180px;
+    }
+}
+</style>
 </head>
-
 <body>
 
-<h2>Dynamic Add / Remove Cards</h2>
+<div class="container">
 
-<div class="btn-container">
-    <button class="add-btn" onclick="addCard()">Add Card</button>
-    <button class="remove-btn" onclick="removeCard()">Remove Card</button>
-</div>
+    <!-- PAGINATION -->
+    <div class="pagination">
+        <button id="prevBtn">Prev</button>
+        <span id="pageNumbers"></span>
+        <button id="nextBtn">Next</button>
+        <input type="number" id="pageInput" min="1" placeholder="Page">
+        <button id="goBtn">Go</button>
+    </div>
 
-<div class="cards-container" id="cardsContainer">
+    <!-- CARDS -->
+    <div id="cardContainer" class="cards"></div>
+
 </div>
 
 <script>
-    let cardCount = 0;
+    const cardsPerPage = 9;
+    const totalCards = 45;
+    let currentPage = 1;
 
-    function addCard() {
-        cardCount++;
+    const data = Array.from({ length: totalCards }, (_, i) => ({
+        title: "Card " + (i + 1),
+        img: "https://picsum.photos/400/300?random=" + (i + 1),
+        link: "#"
+    }));
 
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerText = "Card " + cardCount;
+    const cardContainer = document.getElementById("cardContainer");
+    const pageNumbers = document.getElementById("pageNumbers");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const pageInput = document.getElementById("pageInput");
+    const goBtn = document.getElementById("goBtn");
 
-        document.getElementById("cardsContainer").appendChild(card);
+    const totalPages = Math.ceil(data.length / cardsPerPage);
+
+    function renderCards() {
+        cardContainer.innerHTML = "";
+        const start = (currentPage - 1) * cardsPerPage;
+        const end = start + cardsPerPage;
+
+        data.slice(start, end).forEach(item => {
+            cardContainer.innerHTML += `
+                <div class="card">
+                    <img src="${item.img}" alt="${item.title}">
+                    <div class="card-content">
+                        <a href="${item.link}">${item.title}</a>
+                    </div>
+                </div>
+            `;
+        });
     }
 
-    function removeCard() {
-        const container = document.getElementById("cardsContainer");
+    function renderPagination() {
+        pageNumbers.innerHTML = "";
 
-        if (container.lastElementChild) {
-            container.removeChild(container.lastElementChild);
-            cardCount--;
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.textContent = i;
+            if (i === currentPage) btn.classList.add("active");
+
+            btn.onclick = () => {
+                currentPage = i;
+                updateUI();
+            };
+
+            pageNumbers.appendChild(btn);
         }
+
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
     }
+
+    prevBtn.onclick = () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updateUI();
+        }
+    };
+
+    nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateUI();
+        }
+    };
+
+    goBtn.onclick = () => {
+        const page = parseInt(pageInput.value);
+        if (page >= 1 && page <= totalPages) {
+            currentPage = page;
+            updateUI();
+        }
+        pageInput.value = "";
+    };
+
+    function updateUI() {
+        renderCards();
+        renderPagination();
+    }
+
+    updateUI();
 </script>
 
 </body>
