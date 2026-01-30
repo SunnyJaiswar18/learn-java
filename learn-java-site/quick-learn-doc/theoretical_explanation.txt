@@ -1,0 +1,6 @@
+⭐ Internal Working of HashMap
+Ans---
+HashMap internally uses an **array of buckets** to store data.
+Whenever we insert data into a HashMap using the `put()` method, HashMap first generates a **hashcode** by calling the `hashCode()` method on the key object.
+After generating the hashcode, HashMap calculates the **index of the array** using a hashing formula. This index determines the bucket where the data will be stored.
+Each bucket in the array stores a **linked list of nodes**. Each node contains a **hashcode, key-value pair, and a reference to the next node**, which helps in handling collisions.
