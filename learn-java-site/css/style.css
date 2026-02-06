@@ -382,7 +382,7 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #4caf50; /* Green background to match theme */
+  background-color: hwb(292deg 26.8% 50.24%); /* Green background to match theme */
   color: white;
   text-align: center;
   padding: 10px;
@@ -512,6 +512,7 @@ footer {
     font-size: 1.3rem; /* Adjust heading size */
   }
 }
+
 
 
 
