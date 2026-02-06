@@ -20,7 +20,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: hwb(128 25% 42%);
+  background-color: hwb(292deg 26.8% 50.24%);
   padding: 14px 20px;
   color: white;
   position: fixed;
@@ -63,7 +63,7 @@ body {
     padding: 9px 110px;
     border-radius: 15px;
     margin-top: 100px;
-    background-color: hwb(128 25% 42%);
+    background-color: hwb(292deg 26.8% 50.24%);
 }
 
 .welcome-text h1{
@@ -191,7 +191,7 @@ body {
 
 /* Footer */
 footer {
-    background-color: hwb(128 25% 42%);
+    background-color: hwb(292deg 26.8% 50.24%);
     color: white;
     text-align: center;
     position: fixed;
@@ -512,6 +512,7 @@ footer {
     font-size: 1.3rem; /* Adjust heading size */
   }
 }
+
 
 
 
