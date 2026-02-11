@@ -434,8 +434,8 @@ footer {
   }
 
   .welcome-text {
-    padding: 10px 20px; /* Adjust padding */
-    margin-top: 50px; /* Reduce margin for smaller screens */
+   padding: 12px 25px; /* Adjust padding */
+    margin-top: 100px; /* Reduce margin for smaller screens */
   }
 
   .welcome-text h1, 
@@ -512,6 +512,7 @@ footer {
     font-size: 1.3rem; /* Adjust heading size */
   }
 }
+
 
 
 
