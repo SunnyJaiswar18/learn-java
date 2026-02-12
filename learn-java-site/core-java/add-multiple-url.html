@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Responsive Pagination – No Scroll</title>
+<title>Responsive Pagination – Sticky Bottom</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* RESET */
 * {
     box-sizing: border-box;
 }
@@ -15,29 +15,30 @@ body {
     font-family: Arial, sans-serif;
     background: hwb(292deg 26.8% 50.24%);
     overflow-x: hidden;
-    /* background-image: url(../images/java_bg_image.webp); */
 }
 
+/* CONTAINER */
 .container {
     max-width: 1200px;
     padding: 15px;
     margin: auto;
+    padding-bottom: 100px; /* prevent overlap with sticky pagination */
 }
 
-/* PAGINATION (STICKY TOP) */
+/* PAGINATION — STICKY BOTTOM */
 .pagination {
     position: sticky;
-    top: 0;
+    bottom: 0;
     z-index: 1000;
-    background: #f4f6f8;
+    background: #ede9fe;
+    border-top: 2px solid #6d28d9;
 
-    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
-    padding: 10px 0;
+    padding: 12px 10px;
 }
 
 .pagination button {
@@ -51,8 +52,13 @@ body {
 }
 
 .pagination button.active {
-    background: #007bff;
+    background: #6d28d9;
     color: white;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .pagination input {
@@ -64,39 +70,43 @@ body {
     border: 1px solid #ccc;
 }
 
+/* CARD GRID */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
 /* CARD */
 .card {
     background: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
-    width: 39%;
-    height: 266px;
-    margin: 88px auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .card img {
     width: 100%;
-    height: 140px;
+    height: 160px;
     object-fit: cover;
 }
 
 .card-content {
-    padding: 10px;
+    padding: 12px;
     text-align: center;
 }
 
 .card-content a {
     text-decoration: none;
-    color: #007bff;
-    font-size: 20px;
+    color: #6d28d9;
+    font-size: 18px;
     font-weight: bold;
 }
 
 /* TABLET */
 @media (max-width: 768px) {
     .pagination button {
-        padding: 8px 14px;
+        padding: 8px 12px;
         font-size: 13px;
     }
 }
@@ -105,6 +115,7 @@ body {
 @media (max-width: 480px) {
     .pagination {
         gap: 6px;
+        padding: 10px 6px;
     }
 
     .pagination input {
@@ -114,12 +125,21 @@ body {
     .card img {
         height: 180px;
     }
+
+    .card-content a {
+        font-size: 16px;
+    }
 }
 </style>
 </head>
 
 <body>
-<!-- PAGINATION -->
+
+<div class="container">
+    <div id="cardContainer" class="cards"></div>
+</div>
+
+<!-- PAGINATION AT BOTTOM -->
 <div class="pagination">
     <button id="prevBtn">Prev</button>
     <span id="pageNumbers"></span>
@@ -127,51 +147,24 @@ body {
     <input type="number" id="pageInput" min="1" placeholder="Page">
     <button id="goBtn">Go</button>
 </div>
-<div class="container">
-
-
-
-    <!-- CARDS -->
-    <div id="cardContainer" class="cards"></div>
-
-</div>
 
 <script>
 const cardsPerPage = 6;
 let currentPage = 1;
 
-/* ✅ HARD-CODED IMAGE & LINK URLS */
 const data = [
     { title: "Java Thread 30 Questions and Answers", img: "../quick-learn-doc/multithreading_30_image.png", link: "../quick-learn-doc/30-thread-question-answer.pdf" },
     { title: "Java Collection 30 Questions and Answers", img: "../quick-learn-doc/collection_30_image.png", link: "../quick-learn-doc/Java_Collection.pdf" },
     { title: "Java 30 Questions and Answers", img: "../quick-learn-doc/java_30_questions.png", link: "../quick-learn-doc/java_30_question_ans.pdf" },
     { title: "Java Theoretical Explanation", img: "../quick-learn-doc/Theoretical_Explanation.png", link: "../quick-learn-doc/theoretical_explanation.txt" },
-    { title: "Card 5", img: "https://picsum.photos/id/105/400/300", link: "https://example.com/5" },
     { title: "Java SpringBoot 30 Questions and Answers", img: "../quick-learn-doc/springboot_30_image.png", link: "../quick-learn-doc/springboot_30_questions.pdf" },
-    { title: "Card 7", img: "https://picsum.photos/id/107/400/300", link: "https://example.com/7" },
-    { title: "Card 8", img: "https://picsum.photos/id/108/400/300", link: "https://example.com/8" },
-    { title: "Card 9", img: "https://picsum.photos/id/109/400/300", link: "https://example.com/9" },
-    { title: "Card 10", img: "https://picsum.photos/id/110/400/300", link: "https://example.com/10" },
-    { title: "Card 11", img: "https://picsum.photos/id/111/400/300", link: "https://example.com/11" },
-    { title: "Card 12", img: "https://picsum.photos/id/112/400/300", link: "https://example.com/12" },
-    { title: "Card 13", img: "https://picsum.photos/id/113/400/300", link: "https://example.com/13" },
-    { title: "Card 14", img: "https://picsum.photos/id/114/400/300", link: "https://example.com/14" },
-    { title: "Card 15", img: "https://picsum.photos/id/115/400/300", link: "https://example.com/15" },
-    { title: "Card 16", img: "https://picsum.photos/id/116/400/300", link: "https://example.com/16" },
-    { title: "Card 17", img: "https://picsum.photos/id/117/400/300", link: "https://example.com/17" },
-    { title: "Card 18", img: "https://picsum.photos/id/118/400/300", link: "https://example.com/18" },
-    { title: "Card 19", img: "https://picsum.photos/id/119/400/300", link: "https://example.com/19" },
-    { title: "Card 20", img: "https://picsum.photos/id/120/400/300", link: "https://example.com/20" },
-    { title: "Card 21", img: "https://picsum.photos/id/121/400/300", link: "https://example.com/21" },
-    { title: "Card 22", img: "https://picsum.photos/id/122/400/300", link: "https://example.com/22" },
-    { title: "Card 23", img: "https://picsum.photos/id/123/400/300", link: "https://example.com/23" },
-    { title: "Card 24", img: "https://picsum.photos/id/124/400/300", link: "https://example.com/24" },
-    { title: "Card 25", img: "https://picsum.photos/id/125/400/300", link: "https://example.com/25" },
-    { title: "Card 26", img: "https://picsum.photos/id/126/400/300", link: "https://example.com/26" },
-    { title: "Card 27", img: "https://picsum.photos/id/127/400/300", link: "https://example.com/27" },
-    { title: "Card 28", img: "https://picsum.photos/id/128/400/300", link: "https://example.com/28" },
-    { title: "Card 29", img: "https://picsum.photos/id/129/400/300", link: "https://example.com/29" },
-    { title: "Card 30", img: "https://picsum.photos/id/130/400/300", link: "https://example.com/30" }
+    { title: "Card 6", img: "https://picsum.photos/id/106/400/300", link: "#" },
+    { title: "Card 7", img: "https://picsum.photos/id/107/400/300", link: "#" },
+    { title: "Card 8", img: "https://picsum.photos/id/108/400/300", link: "#" },
+    { title: "Card 9", img: "https://picsum.photos/id/109/400/300", link: "#" },
+    { title: "Card 10", img: "https://picsum.photos/id/110/400/300", link: "#" },
+    { title: "Card 11", img: "https://picsum.photos/id/111/400/300", link: "#" },
+    { title: "Card 12", img: "https://picsum.photos/id/112/400/300", link: "#" }
 ];
 
 const cardContainer = document.getElementById("cardContainer");
@@ -211,6 +204,7 @@ function renderPagination() {
         btn.onclick = () => {
             currentPage = i;
             updateUI();
+            window.scrollTo({ top: 0, behavior: "smooth" });
         };
 
         pageNumbers.appendChild(btn);
@@ -224,6 +218,7 @@ prevBtn.onclick = () => {
     if (currentPage > 1) {
         currentPage--;
         updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 };
 
@@ -231,6 +226,7 @@ nextBtn.onclick = () => {
     if (currentPage < totalPages) {
         currentPage++;
         updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 };
 
@@ -239,6 +235,7 @@ goBtn.onclick = () => {
     if (page >= 1 && page <= totalPages) {
         currentPage = page;
         updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
     pageInput.value = "";
 };
