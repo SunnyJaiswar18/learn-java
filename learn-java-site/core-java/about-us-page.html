@@ -17,6 +17,33 @@ body {
     color: black;
 }
 
+/* Header  Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hwb(292deg 26.8% 50.24%);
+  padding: 14px 20px;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure the navbar is above other elements */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds shadow to navbar */
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+.navbar .logo {
+  font-weight: bold;
+  text-decoration: underline;
+
+}        
+
 /* Page layout — header & footer fixed, middle scroll */
 .page {
     height: 100vh;
