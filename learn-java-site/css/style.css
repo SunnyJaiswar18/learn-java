@@ -514,6 +514,43 @@ footer {
     font-size: 1.3rem; /* Adjust heading size */
   }
 }
+/* TABLET */
+@media (max-width: 768px) {
+    .card {
+        width: 95%;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+    .navbar a {
+        margin: 6px;
+        font-size: 13px;
+    }
+
+    .pagination {
+        gap: 6px;
+        padding: 10px;
+    }
+
+    .pagination input {
+        width: 55px;
+    }
+
+    .card img {
+        height: 170px;
+    }
+
+    .card-content a {
+        font-size: 16px;
+    }
+}
 
 
 
