@@ -395,11 +395,6 @@ footer {
 
 /* For Mobile Devices */
 @media only screen and (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-    text-align: center;
-  }
-
  .sidebar {
     width: 115px;
         height: 100vh;
@@ -551,6 +546,7 @@ footer {
         font-size: 16px;
     }
 }
+
 
 
 
