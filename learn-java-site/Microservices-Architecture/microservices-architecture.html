@@ -236,28 +236,105 @@
             z-index: 1000;
         }
 
-        /* Simple Responsive Adjustments */
+        /* Comprehensive Mobile Responsiveness Adjustments */
         @media (max-width: 768px) {
+            header {
+                position: static;
+                height: auto;
+                padding: 15px;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 10px;
+                display: inline-block;
+            }
+
             .container {
                 flex-direction: column;
+                margin-top: 0;
+                margin-bottom: 0;
+                min-height: auto;
             }
+
             .sidebar {
-                position: relative;
+                position: static;
                 width: 100%;
-                top: 60px;
-                bottom: auto;
                 height: auto;
-                max-height: 250px;
+                max-height: 280px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px;
             }
+
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .sidebar ul li {
+                width: calc(50% - 4px);
+            }
+
+            .sidebar ul li a {
+                margin-bottom: 0;
+                padding: 8px 10px;
+                background-color: #ffffff;
+                border: 1px solid var(--border-color);
+                font-size: 0.85rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
             .content {
                 margin-left: 0;
                 padding: 20px;
+                width: 100%;
             }
+
+            h1.main-title {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            /* Responsive Tables Handling */
+            table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
             .roadmap-grid {
                 grid-template-columns: 1fr;
             }
+
             footer {
-                position: relative;
+                position: static;
+                height: auto;
+                padding: 15px 0;
+            }
+        }
+
+        /* Extra small breakpoint for small mobile screens */
+        @media (max-width: 480px) {
+            .sidebar ul li {
+                width: 100%;
+            }
+            .navbar-center {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            nav a {
+                margin: 0;
             }
         }
     </style>
@@ -297,7 +374,7 @@
         <main class="content">
             <div class="intro-header">
                 <h1 class="main-title">Microservice Architecture: Complete Guide</h1>
-                <div class="author-badge">Curated by Sunny Jaiswar• Web Developer</div>
+                <div class="author-badge">Curated by Sunny Jaiswar • Web Developer</div>
             </div>
 
             <section id="what-is-microservice">
@@ -381,8 +458,7 @@
                     <li><strong>Neglecting Security:</strong> Failing to address security issues in microservices can expose the system to vulnerabilities and potential data breaches.</li>
                 </ul>
             </section>
-
-            <section id="real-world-amazon">
+                    <section id="real-world-amazon">
                 <h2>6. Real-World Example: Amazon E-Commerce Application</h2>
                 <p>Amazon's online store is like a giant puzzle made of many small, specialized pieces called microservices. Below are the key functional services involved:</p>
                 <ul>
@@ -421,7 +497,6 @@
                             <td>Larger, centralized development team.</td>
                         </tr>
                         <tr>
-                            <tr>
                             <td><strong>Scalability</strong></td>
                             <td>Independent scaling of individual services.</td>
                             <td>Scaling involves replicating the entire application.</td>
@@ -530,4 +605,4 @@
     </footer>
 
 </body>
-</html>
+                </html>
