@@ -1,0 +1,457 @@
+### 1. **What is a Thread in Java?**
+
+**Definition:**
+A thread is a lightweight sub-process. It is the smallest unit of execution within a process and shares memory with other threads of the same process.
+
+**Short Answer:**
+A thread is a small, independent task within a program.
+
+**Example:**
+
+```java
+public class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running...");
+    }
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();  // starts the thread
+    }
+}
+```
+
+---
+
+### 2. **How to create a thread in Java?**
+
+**Definition:**
+There are two ways:
+
+1. By extending the `Thread` class.
+2. By implementing the `Runnable` interface.
+
+**Short Answer:**
+Use Thread or Runnable.
+
+**Example using Runnable:**
+
+```java
+public class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Runnable thread running...");
+    }
+
+    public static void main(String[] args) {
+        Thread t = new Thread(new MyRunnable());
+        t.start();
+    }
+}
+```
+
+---
+
+### 3. **What is the difference between `start()` and `run()` method?**
+
+**Definition:**
+`start()` creates a new thread and calls `run()`.
+Calling `run()` directly runs it like a normal method in the main thread.
+
+**Short Answer:**
+`start()` runs in new thread, `run()` runs in current thread.
+
+**Example:**
+
+```java
+public class Test extends Thread {
+    public void run() {
+        System.out.println("Running in: " + Thread.currentThread().getName());
+    }
+    public static void main(String[] args) {
+        Test t = new Test();
+        t.run();   // current thread
+        t.start(); // new thread
+    }
+}
+```
+
+---
+
+### 4. **What is the lifecycle of a thread?**
+
+**Definition:**
+States: New → Runnable → Running → Blocked/Waiting → Terminated
+
+**Short Answer:**
+New → Ready → Running → Dead
+
+**Example:**
+
+```java
+Thread t = new Thread(() -> System.out.println("Hi"));
+System.out.println(t.getState()); // NEW
+t.start();
+System.out.println(t.getState()); // RUNNABLE or TERMINATED
+```
+
+---
+
+### 5. **What is the difference between `sleep()` and `wait()`?**
+
+**Definition:**
+`sleep()` pauses thread execution for given time (belongs to `Thread` class).
+`wait()` releases lock and waits (belongs to `Object` class).
+
+**Short Answer:**
+`sleep()` → no lock release, `wait()` → releases lock.
+
+**Example:**
+
+```java
+// sleep
+Thread.sleep(1000);
+
+// wait
+public class WaitNotifyDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+        Object sharedLock = new Object();
+
+        Thread waitingThread = new Thread(new WaitingThread(sharedLock));
+        Thread notifyingThread = new Thread(new NotifyingThread(sharedLock));
+
+        waitingThread.start();
+
+        // Delay to ensure waiting thread starts and calls wait()
+        Thread.sleep(1000);
+
+        notifyingThread.start();
+    }
+}
+
+// Waiting thread class
+class WaitingThread implements Runnable {
+    Object lock;
+
+    public WaitingThread(Object lock) {
+        this.lock = lock;
+    }
+
+    @Override
+    public void run() {
+        synchronized (lock) {
+            try {
+                System.out.println("WaitingThread: Waiting...");
+                lock.wait();  // Releases the lock and waits
+                System.out.println("WaitingThread: Got notified!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// Notifying thread class
+class NotifyingThread implements Runnable {
+    Object lock;
+
+    public NotifyingThread(Object lock) {
+        this.lock = lock;
+    }
+
+    @Override
+    public void run() {
+        synchronized (lock) {
+            System.out.println("NotifyingThread: Sending notification...");
+            lock.notify();  // Wakes up the waiting thread
+        }
+    }
+}
+OutPut:
+
+WaitingThread: Waiting...
+NotifyingThread: Sending notification...
+WaitingThread: Got notified!
+
+---
+
+### 6. **What is thread synchronization?**
+
+**Definition:**
+Synchronization is used to control access to shared resources and prevent thread interference.
+
+**Short Answer:**
+Prevent multiple threads from accessing shared data at the same time.
+
+**Example:**
+
+```java
+public synchronized void print() {
+    System.out.println("Synchronized method");
+}
+```
+
+---
+
+### 7. **What is a daemon thread?**
+
+**Definition:**
+A daemon thread runs in background and does not prevent the JVM from exiting when user threads finish.
+
+**Short Answer:**
+Background thread; dies when main thread dies.
+
+**Example:**
+
+```java
+Thread t = new Thread(() -> System.out.println("Daemon"));
+t.setDaemon(true);
+t.start();
+```
+
+---
+
+### 8. **What is thread priority?**
+
+**Definition:**
+Thread priority determines the order in which threads are scheduled.
+
+**Short Answer:**
+Higher priority runs first (but not guaranteed).
+
+**Example:**
+
+```java
+Thread t = new Thread();
+t.setPriority(Thread.MAX_PRIORITY);
+``` 
+
+---
+
+### 9. **What is deadlock in multithreading?**
+
+**Definition:**
+Deadlock occurs when two threads are waiting on each other to release locks.
+
+**Short Answer:**
+Two threads wait forever on each other.
+
+**Example:**
+
+```java
+// Simplified deadlock
+synchronized(obj1) {
+   synchronized(obj2) {
+       // logic
+   }
+}
+```
+
+---
+
+### 10. **What is the difference between `notify()`, `notifyAll()` and `wait()`?**
+
+**Definition:**
+
+* `wait()` → makes thread wait
+* `notify()` → wakes one thread
+* `notifyAll()` → wakes all waiting threads
+
+**Short Answer:**
+Used for communication between threads.
+
+**Example:**
+
+```java
+synchronized(obj) {
+    obj.wait();
+    obj.notify();
+}
+```
+
+---
+
+### 11. **What is volatile keyword in Java?**
+
+**Definition:**
+`volatile` ensures visibility of changes to variables across threads.
+
+**Short Answer:**
+Always read latest value from memory.
+
+**Example:**
+
+```java
+volatile boolean flag = true;
+```
+
+---
+
+### 12. **What is join() method in thread?**
+
+**Definition:**
+`join()` tells one thread to wait for another to finish.
+
+**Short Answer:**
+Wait for thread to finish.
+
+**Example:**
+
+```java
+// Worker Thread Class
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        try {
+            System.out.println("MyThread: Started");
+            for (int i = 1; i <= 3; i++) {
+                System.out.println("MyThread: Count " + i);
+                Thread.sleep(500); // Simulate work
+            }
+            System.out.println("MyThread: Finished");
+        } catch (InterruptedException e) {
+            System.out.println("MyThread: Interrupted");
+        }
+    }
+}
+
+// Main Class
+public class JoinExample {
+    public static void main(String[] args) throws InterruptedException {
+        MyThread t1 = new MyThread();
+        t1.start(); // Start the thread
+
+        t1.join(); // Main thread waits for t1 to complete
+
+        System.out.println("Main thread continues after MyThread is done.");
+    }
+}
+output:
+MyThread: Started
+MyThread: Count 1
+MyThread: Count 2
+MyThread: Count 3
+MyThread: Finished
+Main thread continues after MyThread is done.
+
+
+
+---
+
+### 13. **What is the use of `yield()`?**
+
+**Definition:**
+`yield()` allows current thread to pause and give chance to others of same priority.
+
+**Short Answer:**
+Give chance to other threads.
+
+**Example:**
+
+```java
+Thread.yield();
+```
+
+---
+
+### 14. **What is the difference between `Runnable` and `Callable`?**
+
+**Definition:**
+`Runnable` can't return value or throw checked exception.
+`Callable` can return result and throw exception.
+
+**Short Answer:**
+Callable returns result; Runnable doesn't.
+
+**Example:**
+
+```java
+Callable<Integer> task = () -> 42;
+```
+
+---
+
+### 15. **What is ExecutorService?**
+
+**Definition:**
+A framework that provides thread pool management to run asynchronous tasks.
+
+**Short Answer:**
+Thread pool manager.
+
+**Example:**
+
+```java
+ExecutorService es = Executors.newFixedThreadPool(2);
+es.submit(() -> System.out.println("Running"));
+```
+
+---
+
+### 16. **What is ThreadPool?**
+
+**Definition:**
+Thread pool manages a pool of worker threads to reuse for executing tasks.
+
+**Short Answer:**
+Group of pre-created threads.
+
+**Example:**
+
+```java
+ExecutorService pool = Executors.newCachedThreadPool();
+```
+
+---
+
+### 17. **What is the difference between concurrency and parallelism?**
+
+**Definition:**
+
+* Concurrency: multiple tasks handled (maybe interleaved).
+* Parallelism: tasks running at the same time on different processors.
+
+**Short Answer:**
+Concurrency = multi-tasking
+Parallelism = simultaneous execution
+
+---
+
+### 18. **What is race condition?**
+
+**Definition:**
+When two or more threads access shared data and try to change it at the same time, it causes unpredictable results.
+
+**Short Answer:**
+Wrong output due to multiple threads.
+
+**Example:**
+
+```java
+int count = 0;
+count++; // race condition if not synchronized
+```
+
+---
+
+### 19. **How to avoid race condition in Java?**
+
+**Answer:**
+Use synchronization, locks, or atomic variables.
+
+**Example:**
+
+```java
+synchronized(this) {
+    count++;
+}
+```
+
+---
+
+### 20. **What are thread-safe classes in Java?**
+
+**Answer:**
+Classes designed to be safely used by multiple threads.
+E.g. `Vector`, `Hashtable`, `StringBuffer`.
+
+---
