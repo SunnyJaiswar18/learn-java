@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About Learn Java</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    color: black;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hwb(292deg 26.8% 50.24%);
+  padding: 14px 20px;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 12px;
+  font-size: 14px;
+}
+
+.navbar .logo {
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 18px;
+}
+/* Page layout — header & footer fixed, middle scroll */
+.page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sticky Header */
+header {
+    background: hwb(292deg 26.8% 50.24%);
+    color: white;
+    padding: 18px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Scrollable middle area */
+.content {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* Cards */
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    transition: transform 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    margin-top: 0;
+    color: #9c27b0;
+}
+
+p {
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+ul {
+    padding-left: 20px;
+    line-height: 1.8;
+}
+
+.badge {
+    display: inline-block;
+    background: #9c27b0;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+/* Sticky Footer */
+footer {
+    background: hwb(292deg 26.8% 50.24%);
+    color: white;
+    text-align: center;
+    padding: 14px;
+    font-size: 11px;
+    position: sticky;
+    bottom: 0;
+}
+
+/* ---------- MOBILE VIEW ---------- */
+/* TABLET */
+@media (max-width: 768px) {
+    .card {
+        width: 95%;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+    .navbar a {
+        margin: 6px;
+        font-size: 13px;
+    }
+
+    .pagination {
+        gap: 6px;
+        padding: 10px;
+    }
+
+    .pagination input {
+        width: 55px;
+    }
+
+    .card img {
+        height: 170px;
+    }
+
+    .card-content a {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+    <!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="/learn-java/learn-java-site/" class="logo">🏠Learn Java</a>
+    </div>
+    <div class="navbar-center">
+        <a href="../core-java/add-multiple-url.html">Quick Revision</a>
+        <a href="../core-java/about-us-page.html">About Us</a>
+        <a href="https://www.youtube.com/@JavaLibrary_Pro/videos">YouTube Videos</a>
+    </div>
+</nav>
+
+
+<div class="page">
+
+    <!-- <header>
+        🏠 Learn Java — About Us
+    </header> -->
+
+    <div class="content">
+        <div class="container">
+
+            <div class="card">
+                <span class="badge">About Learn Java</span>
+                <p>
+                    Learn Java is a structured learning platform designed to help beginners and experienced developers
+                    master Java step-by-step. The site is organized index-wise so new learners can follow concepts in order,
+                    while experienced developers can directly access deep technical documents and quick revision sets.
+                </p>
+                <p>
+                    Our content is designed for clarity, practical understanding, and fast revision — all in one place.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>🎯 Our Mission</h2>
+                <p>
+                    Our mission is to make Java learning simple, structured, and practical. We aim to provide:
+                </p>
+                <ul>
+                    <li>Index-wise theoretical concepts for beginners</li>
+                    <li>Detailed technical documents for experienced developers</li>
+                    <li>Quick revision question sets for job preparation</li>
+                    <li>Example-driven explanations for better understanding</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>💎 Our Values</h2>
+                <ul>
+                    <li>Clarity over complexity</li>
+                    <li>Practical knowledge over memorization</li>
+                    <li>Structured learning paths</li>
+                    <li>Continuous improvement of content</li>
+                    <li>Developer-friendly explanations</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🚀 Why Choose Learn Java</h2>
+                <ul>
+                    <li>Beginner → Advanced learning flow</li>
+                    <li>Topic-wise Java theory index</li>
+                    <li>Deep-dive Java reference documents</li>
+                    <li>Quick 30-question revision sets</li>
+                    <li>Easy language + real examples</li>
+                    <li>Perfect for fast revision and concept refresh</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Learn Java — Structured Java Learning Platform
+    </footer>
+
+</div>
+
+</body>
+</html>
