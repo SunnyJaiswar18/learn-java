@@ -151,8 +151,58 @@ body {
   display: inline-block;
   font-size: 12px;
 }
-.button4 {border: 2px solid #e7e7e7;}
-.button4:hover {background-color: #e7e7e7;}    
+.buttonUploadDoc {border: 2px solid #e7e7e7;}
+.buttonUploadDoc:hover {background-color: #e7e7e7;} 
+
+/* Upload popup Modal */
+.modal{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    z-index:9999;
+}
+
+.modal-content-popup{
+    background:#fff;
+    width:400px;
+    max-width:90%;
+    margin:100px auto;
+    padding:20px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.modal-content-popup input{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.close{
+    align-self:flex-end;
+    cursor:pointer;
+    font-size:24px;
+    font-weight:bold;
+}
+
+#saveDocBtn{
+    padding:10px;
+    border:none;
+    border-radius:5px;
+    background:#6f2dbd;
+    color:white;
+    cursor:pointer;
+}
+
+#saveDocBtn:hover{
+    background:#5a189a;
+}
 
 /* TABLET */
 @media (max-width: 768px) {
@@ -205,7 +255,7 @@ body {
         <a href="../core-java/add-multiple-url.html">Quick Revision</a>
         <a href="../core-java/about-us-page.html">About Us</a>
         <a href="https://www.youtube.com/@JavaLibrary_Pro/videos">YouTube Videos</a>
-       <button class="button button4">Upload Doc</button>
+      <button class="button buttonUploadDoc" id="uploadBtn">Upload Doc</button>
     </div>
 </nav>
 
@@ -221,6 +271,18 @@ body {
     <button id="nextBtn">Next</button>
     <input type="number" id="pageInput" min="1" placeholder="Page">
     <button id="goBtn">Go</button>
+</div>
+
+<!-- Upload Modal -->
+<div id="uploadModal" class="modal">
+    <div class="modal-content-popup">
+        <span class="close">&times;</span>
+        <h3>Add New Document</h3>
+        <input type="text" id="docTitle" placeholder="Document Title">
+        <input type="text" id="docImage" placeholder="Image URL">
+        <input type="text" id="docLink" placeholder="PDF / Document Link">
+        <button id="saveDocBtn">Save Document</button>
+    </div>
 </div>
 
 <script>
@@ -255,7 +317,9 @@ const nextBtn = document.getElementById("nextBtn");
 const pageInput = document.getElementById("pageInput");
 const goBtn = document.getElementById("goBtn");
 
-const totalPages = Math.ceil(data.length / cardsPerPage);
+function getTotalPages() {
+    return Math.ceil(data.length / cardsPerPage);
+}        
 
 function renderCards() {
     cardContainer.innerHTML = "";
@@ -277,10 +341,13 @@ function renderCards() {
 function renderPagination() {
     pageNumbers.innerHTML = "";
 
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 1; i <= getTotalPages(); i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
-        if (i === currentPage) btn.classList.add("active");
+
+        if (i === currentPage) {
+            btn.classList.add("active");
+        }
 
         btn.onclick = () => {
             currentPage = i;
@@ -292,9 +359,8 @@ function renderPagination() {
     }
 
     prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
+    nextBtn.disabled = currentPage === getTotalPages();
 }
-
 prevBtn.onclick = () => {
     if (currentPage > 1) {
         currentPage--;
@@ -304,7 +370,7 @@ prevBtn.onclick = () => {
 };
 
 nextBtn.onclick = () => {
-    if (currentPage < totalPages) {
+    if (currentPage < getTotalPages()) {
         currentPage++;
         updateUI();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -313,14 +379,65 @@ nextBtn.onclick = () => {
 
 goBtn.onclick = () => {
     const page = parseInt(pageInput.value);
-    if (page >= 1 && page <= totalPages) {
+
+    if (page >= 1 && page <= getTotalPages()) {
         currentPage = page;
         updateUI();
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
+
     pageInput.value = "";
 };
+/* ==========================
+   Upload Document Popup
+========================== */
 
+const uploadBtn = document.getElementById("uploadBtn");
+const uploadModal = document.getElementById("uploadModal");
+const closeBtn = document.querySelector(".close");
+const saveDocBtn = document.getElementById("saveDocBtn");
+
+uploadBtn.addEventListener("click", () => {
+    uploadModal.style.display = "block";
+});
+
+closeBtn.addEventListener("click", () => {
+    uploadModal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === uploadModal) {
+        uploadModal.style.display = "none";
+    }
+});
+
+saveDocBtn.addEventListener("click", () => {
+
+    const title = document.getElementById("docTitle").value.trim();
+    const img = document.getElementById("docImage").value.trim();
+    const link = document.getElementById("docLink").value.trim();
+
+    if (!title || !img || !link) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    data.unshift({
+        title: title,
+        img: img,
+        link: link
+    });
+
+    currentPage = 1;
+
+    document.getElementById("docTitle").value = "";
+    document.getElementById("docImage").value = "";
+    document.getElementById("docLink").value = "";
+
+    uploadModal.style.display = "none";
+
+    updateUI();
+});
 function updateUI() {
     renderCards();
     renderPagination();
