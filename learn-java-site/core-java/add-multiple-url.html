@@ -288,7 +288,7 @@ body {
 const cardsPerPage = 6;
 let currentPage = 1;
 
-let data = [
+const data = [
     { title: "Java Thread 30 Questions and Answers", img: "../quick-learn-doc/multithreading_30_image.png", link: "../quick-learn-doc/30-thread-question-answer.pdf" },
     { title: "Java Collection 30 Questions and Answers", img: "../quick-learn-doc/collection_30_image.png", link: "../quick-learn-doc/Java_Collection.pdf" },
     { title: "Java 30 Questions and Answers", img: "../quick-learn-doc/java_30_questions.png", link: "../quick-learn-doc/java_30_question_ans.pdf" },
@@ -298,7 +298,6 @@ let data = [
     { title: "Java Logic Building Before DSA", img: "../quick-learn-doc/multithreading_30_image.png", link: "../quick-learn-doc/LogicBuilding.pdf" },
     { title: "Data Structures and Algorithms", img: "../quick-learn-doc/dsa.jpg", link: "../quick-learn-doc/Data_Structures_and_Algorithm.pdf" },
     { title: "DSA Handwritten Notes", img: "../quick-learn-doc/dsa_handwritten.jpg", link: "../quick-learn-doc/dsa_animate.pdf" },
-
     { title: "Card 10", img: "https://picsum.photos/id/110/400/300", link: "#" },
     { title: "Card 11", img: "https://picsum.photos/id/111/400/300", link: "#" },
     { title: "Card 12", img: "https://picsum.photos/id/112/400/300", link: "#" },
@@ -317,24 +316,19 @@ const nextBtn = document.getElementById("nextBtn");
 const pageInput = document.getElementById("pageInput");
 const goBtn = document.getElementById("goBtn");
 
-function getTotalPages() {
-    return Math.ceil(data.length / cardsPerPage);
-}
+const totalPages = Math.ceil(data.length / cardsPerPage);
 
 function renderCards() {
     cardContainer.innerHTML = "";
-
     const start = (currentPage - 1) * cardsPerPage;
     const end = start + cardsPerPage;
 
     data.slice(start, end).forEach(item => {
         cardContainer.innerHTML += `
             <div class="card">
-                item.img}" alt="${item.title}">
+                <img src="${item.img}" alt="${item.title}">
                 <div class="card-content">
-                    ${item.link}
-                        ${item.title}
-                    </a>
+                    <a href="${item.link}">${item.title}</a>
                 </div>
             </div>
         `;
@@ -344,13 +338,10 @@ function renderCards() {
 function renderPagination() {
     pageNumbers.innerHTML = "";
 
-    for (let i = 1; i <= getTotalPages(); i++) {
+    for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement("button");
         btn.textContent = i;
-
-        if (i === currentPage) {
-            btn.classList.add("active");
-        }
+        if (i === currentPage) btn.classList.add("active");
 
         btn.onclick = () => {
             currentPage = i;
@@ -362,85 +353,34 @@ function renderPagination() {
     }
 
     prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === getTotalPages();
+    nextBtn.disabled = currentPage === totalPages;
 }
 
 prevBtn.onclick = () => {
     if (currentPage > 1) {
         currentPage--;
         updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 };
 
 nextBtn.onclick = () => {
-    if (currentPage < getTotalPages()) {
+    if (currentPage < totalPages) {
         currentPage++;
         updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 };
 
 goBtn.onclick = () => {
     const page = parseInt(pageInput.value);
-
-    if (page >= 1 && page <= getTotalPages()) {
+    if (page >= 1 && page <= totalPages) {
         currentPage = page;
         updateUI();
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
-
     pageInput.value = "";
 };
-
-const uploadBtn = document.getElementById("uploadBtn");
-const uploadModal = document.getElementById("uploadModal");
-const closeModal = document.querySelector(".close");
-const saveDocBtn = document.getElementById("saveDocBtn");
-
-uploadBtn.addEventListener("click", () => {
-    uploadModal.style.display = "block";
-});
-
-closeModal.addEventListener("click", () => {
-    uploadModal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === uploadModal) {
-        uploadModal.style.display = "none";
-    }
-});
-
-saveDocBtn.addEventListener("click", () => {
-
-    const title = document.getElementById("docTitle").value.trim();
-    const imageUrl = document.getElementById("docImage").value.trim();
-    const link = document.getElementById("docLink").value.trim();
-
-    if (!title || !imageUrl || !link) {
-        alert("Please fill all fields");
-        return;
-    }
-
-    // append new object into array
-    data.push({
-        title: title,
-        img: imageUrl,
-        link: link
-    });
-
-    console.log(data); // verify object added
-
-    currentPage = getTotalPages();
-
-    updateUI();
-
-    document.getElementById("docTitle").value = "";
-    document.getElementById("docImage").value = "";
-    document.getElementById("docLink").value = "";
-
-    uploadModal.style.display = "none";
-
-    alert("Document Added Successfully!");
-});
 
 function updateUI() {
     renderCards();
