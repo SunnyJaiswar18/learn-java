@@ -141,68 +141,20 @@ body {
     border-radius: 6px;
     border: 1px solid #ccc;
 }
+/*upload document */
 /*upload document Button*/
 .button {
   background-color: white;
   border-radius: 3px;
   color: black;
+  padding: 2px 1px;
   padding: 3px 1px;
   text-align: center;
   display: inline-block;
   font-size: 12px;
 }
-.buttonUploadDoc {border: 2px solid #e7e7e7;}
-.buttonUploadDoc:hover {background-color: #e7e7e7;} 
-
-/* Upload popup Modal */
-.modal{
-    display:none;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.5);
-    z-index:9999;
-}
-
-.modal-content-popup{
-    background:#fff;
-    width:400px;
-    max-width:90%;
-    margin:100px auto;
-    padding:20px;
-    border-radius:10px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.modal-content-popup input{
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
-.close{
-    align-self:flex-end;
-    cursor:pointer;
-    font-size:24px;
-    font-weight:bold;
-}
-
-#saveDocBtn{
-    padding:10px;
-    border:none;
-    border-radius:5px;
-    background:#6f2dbd;
-    color:white;
-    cursor:pointer;
-}
-
-#saveDocBtn:hover{
-    background:#5a189a;
-}
+.button4 {border: 2px solid #e7e7e7;}
+.button4:hover {background-color: #e7e7e7;}    
 
 /* TABLET */
 @media (max-width: 768px) {
@@ -255,7 +207,7 @@ body {
         <a href="../core-java/add-multiple-url.html">Quick Revision</a>
         <a href="../core-java/about-us-page.html">About Us</a>
         <a href="https://www.youtube.com/@JavaLibrary_Pro/videos">YouTube Videos</a>
-      <button class="button buttonUploadDoc" id="uploadBtn">Upload Doc</button>
+       <button class="button button4">Upload Doc</button>
     </div>
 </nav>
 
@@ -273,17 +225,6 @@ body {
     <button id="goBtn">Go</button>
 </div>
 
-<!-- Upload Modal -->
-<div id="uploadModal" class="modal">
-    <div class="modal-content-popup">
-        <span class="close">&times;</span>
-        <h3>Add New Document</h3>
-        <input type="text" id="docTitle" placeholder="Document Title">
-        <input type="text" id="docImage" placeholder="Image URL">
-        <input type="text" id="docLink" placeholder="PDF / Document Link">
-        <button id="saveDocBtn">Save Document</button>
-    </div>
-</div>
 <script>
 const cardsPerPage = 6;
 let currentPage = 1;
@@ -306,9 +247,7 @@ const data = [
     { title: "Card 15", img: "https://picsum.photos/id/108/400/300", link: "#" },
     { title: "Card 16", img: "https://picsum.photos/id/109/400/300", link: "#" },
     { title: "Card 17", img: "https://picsum.photos/id/110/400/300", link: "#" },
-    { title: "Card 18", img: "https://picsum.photos/id/111/400/300", link: "#" },
-     { title: "Card 19", img: "https://picsum.photos/id/110/400/300", link: "#" },
-    { title: "Card 20", img: "https://picsum.photos/id/111/400/300", link: "#" }
+    { title: "Card 18", img: "https://picsum.photos/id/111/400/300", link: "#" }
 ];
 
 const cardContainer = document.getElementById("cardContainer");
@@ -391,5 +330,6 @@ function updateUI() {
 
 updateUI();
 </script>
+
 </body>
 </html>
