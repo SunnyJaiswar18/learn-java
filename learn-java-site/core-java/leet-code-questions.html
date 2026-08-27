@@ -1,1 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode Easy 200</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#0d1117;
+    color:#fff;
+}
+
+/* Header */
+.header{
+    position:sticky;
+    top:0;
+    background:#161b22;
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #30363d;
+    z-index:100;
+}
+
+.header h1{
+    font-size:20px;
+}
+
+/* Search */
+.search-container{
+    padding:15px;
+}
+
+.search-box{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#21262d;
+    color:white;
+    font-size:16px;
+}
+
+/* List View */
+.question-list{
+    display:block;
+}
+
+.question-item{
+    background:#161b22;
+    margin:10px 15px;
+    padding:15px;
+    border-radius:12px;
+    cursor:pointer;
+    border:1px solid #30363d;
+}
+
+.question-item:hover{
+    background:#21262d;
+}
+
+.question-title{
+    font-weight:bold;
+}
+
+.easy{
+    color:#2ea043;
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* Detail View */
+.detail-view{
+    display:none;
+    padding:20px;
+}
+
+.back-btn{
+    background:#238636;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.problem-title{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+.section{
+    margin-top:25px;
+}
+
+.section h2{
+    margin-bottom:10px;
+    color:#58a6ff;
+}
+
+.section p{
+    line-height:1.6;
+}
+
+pre{
+    background:#161b22;
+    border:1px solid #30363d;
+    padding:15px;
+    border-radius:10px;
+    overflow:auto;
+    margin-top:10px;
+}
+
+code{
+    color:#79c0ff;
+}
+
+.leetcode-link{
+    color:#58a6ff;
+    text-decoration:none;
+}
+
+.complexity{
+    background:#161b22;
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .problem-title{
+        font-size:22px;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>📚 LeetCode Easy 200</h1>
+</div>
+
+<!-- List Page -->
+<div id="listPage">
+
+    <div class="search-container">
+        <input
+            type="text"
+            id="search"
+            class="search-box"
+            placeholder="Search questions..."
+        >
+    </div>
+
+    <div id="questionList"></div>
+
+</div>
+
+<!-- Detail Page -->
+<div id="detailPage" class="detail-view">
+
+    <button class="back-btn" onclick="showList()">
+        ← Back
+    </button>
+
+    <h1 id="title" class="problem-title"></h1>
+
+    <a id="leetcodeLink"
+       target="_blank"
+       class="leetcode-link">
+       Open LeetCode Problem
+    </a>
+
+    <div class="section">
+        <h2>Description</h2>
+        <p id="description"></p>
+    </div>
+
+    <div class="section">
+        <h2>Approach</h2>
+        <p id="approach"></p>
+    </div>
+
+    <div class="section">
+        <h2>Solution</h2>
+        <pre><code id="solution"></code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Complexity</h2>
+        <div class="complexity" id="complexity"></div>
+    </div>
+
+</div>
+
+<script>
+
+/* Add all 200 questions here */
+const questions = [
+
+{
+    id:1,
+    title:"Two Sum",
+    difficulty:"Easy",
+    link:"https://leetcode.com/problems/two-sum/",
+    description:"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+    approach:"Use a HashMap to store previously visited numbers and their indexes.",
+    solution:`class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+
+        unordered_map<int,int> mp;
+
+        for(int i=0;i<nums.size();i++){
+
+            int diff=target-nums[i];
+
+            if(mp.count(diff))
+                return {mp[diff],i};
+
+            mp[nums[i]]=i;
+        }
+
+        return {};
+    }
+};`,
+    time:"O(n)",
+    space:"O(n)"
+},
+
+{
+    id:20,
+    title:"Valid Parentheses",
+    difficulty:"Easy",
+    link:"https://leetcode.com/problems/valid-parentheses/",
+    description:"Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
+    approach:"Use a stack. Push opening brackets onto the stack and pop when matching closing brackets appear.",
+    solution:`class Solution {
+public:
+    bool isValid(string s) {
+
+        stack<char> st;
+
+        for(char c:s){
+
+            if(c=='('||c=='{'||c=='[')
+                st.push(c);
+
+            else{
+
+                if(st.empty())
+                    return false;
+
+                if(c==')'&&st.top()!='(')
+                    return false;
+
+                if(c=='}'&&st.top()!='{')
+                    return false;
+
+                if(c==']'&&st.top()!='[')
+                    return false;
+
+                st.pop();
+            }
+        }
+
+        return st.empty();
+    }
+};`,
+    time:"O(n)",
+    space:"O(n)"
+},
+
+{
+    id:13,
+    title:"Roman to Integer",
+    difficulty:"Easy",
+    link:"https://leetcode.com/problems/roman-to-integer/",
+    description:"Convert a Roman numeral to an integer.",
+    approach:"Traverse the string and subtract smaller values when they appear before larger values.",
+    solution:`class Solution {
+public:
+    int romanToInt(string s) {
+        // implementation
+    }
+};`,
+    time:"O(n)",
+    space:"O(1)"
+}
+
+];
+
+/* Render Question List */
+const listContainer = document.getElementById("questionList");
+
+function renderQuestions(data){
+
+    listContainer.innerHTML="";
+
+    data.forEach(q=>{
+
+        listContainer.innerHTML+=`
+        <div class="question-item"
+             onclick="openQuestion(${q.id})">
+
+            <div class="question-title">
+                ${q.id}. ${q.title}
+            </div>
+
+            <div class="easy">
+                ${q.difficulty}
+            </div>
+
+        </div>
+        `;
+    });
+}
+
+renderQuestions(questions);
+
+/* Search */
+
+document.getElementById("search")
+.addEventListener("input",function(){
+
+    const val=this.value.toLowerCase();
+
+    const filtered=questions.filter(q=>
+        q.title.toLowerCase().includes(val)
+    );
+
+    renderQuestions(filtered);
+});
+
+/* Open Question */
+
+function openQuestion(id){
+
+    const q=questions.find(x=>x.id===id);
+
+    document.getElementById("listPage").style.display="none";
+    document.getElementById("detailPage").style.display="block";
+
+    document.getElementById("title").innerText=
+        `${q.id}. ${q.title}`;
+
+    document.getElementById("description").innerText=
+        q.description;
+
+    document.getElementById("approach").innerText=
+        q.approach;
+
+    document.getElementById("solution").innerText=
+        q.solution;
+
+    document.getElementById("complexity").innerHTML=
+        `<b>Time:</b> ${q.time}<br><br>
+         <b>Space:</b> ${q.space}`;
+
+    document.getElementById("leetcodeLink").href=
+        q.link;
+
+    window.scrollTo(0,0);
+}
+
+/* Back */
+
+function showList(){
+
+    document.getElementById("detailPage").style.display="none";
+    document.getElementById("listPage").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
