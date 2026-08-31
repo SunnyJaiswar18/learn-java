@@ -56,10 +56,11 @@ body {
 
 /* CARDS — vertical + centered */
 .cards {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    margin: auto;
 }
 
 /* CARD */
@@ -67,12 +68,10 @@ body {
     background: #ffffff;
     border-radius: 14px;
     padding: 14px;
-    width: 420px;
-    max-width: 95%;
+    width: 100%;
     box-shadow: 0 8px 25px rgba(0,0,0,0.18);
     transition: transform 0.25s ease;
 }
-
 .card:hover {
     transform: translateY(-6px);
 }
@@ -155,43 +154,6 @@ body {
 .buttonUploadDoc {border: 2px solid #e7e7e7;}
 .buttonUploadDoc:hover {background-color: #e7e7e7;} 
 
-/*upload document popup*/
-.modal{
-    display:none;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.5);
-    z-index:9999;
-}
-
-.modal-content-popup{
-    background:#fff;
-    width:400px;
-    max-width:90%;
-    margin:100px auto;
-    padding:20px;
-    border-radius:10px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
-
-.modal-content-popup input{
-    padding:10px;
-    border:1px solid #ccc;
-    border-radius:5px;
-}
-
-.close{
-    align-self:flex-end;
-    cursor:pointer;
-    font-size:24px;
-    font-weight:bold;
-}
-
 #saveDocBtn{
     padding:10px;
     border:none;
@@ -207,9 +169,6 @@ body {
 
 /* TABLET */
 @media (max-width: 768px) {
-    .card {
-        width: 95%;
-    }
 
     .navbar {
         flex-wrap: wrap;
@@ -235,11 +194,11 @@ body {
     }
 
     .card img {
-        height: 170px;
+        height: 140px;
     }
 
     .card-content a {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 </style>
@@ -274,17 +233,6 @@ body {
     <input type="number" id="pageInput" min="1" placeholder="Page">
     <button id="goBtn">Go</button>
 </div>
-<!-- Upload Modal -->
-<div id="uploadModal" class="modal">
-    <div class="modal-content-popup">
-        <span class="close">&times;</span>
-        <h3>Add New Document</h3>
-        <input type="text" id="docTitle" placeholder="Document Title">
-        <input type="text" id="docImage" placeholder="Image URL">
-        <input type="text" id="docLink" placeholder="PDF / Document Link">
-        <button id="saveDocBtn">Save Document</button>
-    </div>
-</div>    
 
 <script>
 const cardsPerPage = 6;
