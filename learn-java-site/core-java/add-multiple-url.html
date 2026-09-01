@@ -42,7 +42,6 @@ body {
 .navbar .logo {
   font-weight: bold;
   text-decoration: underline;
-  font-size: 18px;
 }
 
 /* CONTAINER */
@@ -333,28 +332,6 @@ goBtn.onclick = () => {
     }
     pageInput.value = "";
 };
-/* ==========================
-   Upload Document Popup
-========================== */
-
-/*const uploadBtn = document.getElementById("uploadBtn");
-const uploadModal = document.getElementById("uploadModal");
-const closeBtn = document.querySelector(".close");
-const saveDocBtn = document.getElementById("saveDocBtn");
-
-uploadBtn.addEventListener("click", () => {
-    uploadModal.style.display = "block";
-});
-
-closeBtn.addEventListener("click", () => {
-    uploadModal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === uploadModal) {
-        uploadModal.style.display = "none";
-    }
-});*/
 function updateUI() {
     renderCards();
     renderPagination();
