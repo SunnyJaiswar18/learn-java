@@ -1,1 +1,442 @@
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TCS Digital Bus Pass Demo</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f3f0fa;
+  color: #292344;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Welcome Screen */
+#welcome {
+  background: linear-gradient(145deg,#3547ef,#7130bd);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.welcome-title {
+  font-size: 42px;
+  margin-bottom: 45px;
+}
+
+#welcome h2 {
+  font-size: 23px;
+  margin-bottom: 40px;
+}
+
+.service {
+  width: 100%;
+  max-width: 450px;
+  min-height: 105px;
+  border: 3px solid white;
+  border-radius: 70px 12px 12px 70px;
+  background: #29216c;
+  color: white;
+  margin: 12px 0;
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+}
+
+.service span {
+  font-size: 45px;
+}
+
+/* Header */
+header {
+  background: #3822a4;
+  color: white;
+  margin: -20px -20px 20px;
+  padding: 18px;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+/* Route */
+.route {
+  background: linear-gradient(120deg,#3820bd,#1674dc);
+  color: white;
+  border-radius: 12px;
+  padding: 22px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.route h3 {
+  font-size: 19px;
+  margin: 8px;
+}
+
+.route p {
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+/* Cards */
+.card {
+  background: white;
+  padding: 22px 17px;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px #0001;
+  text-align: center;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+}
+
+.qr {
+  width: 230px;
+  height: 230px;
+  margin: 15px auto 25px;
+  display: block;
+}
+
+/* Details */
+.details {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+}
+
+.details h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 10px;
+  padding: 13px 3px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.detail-row span:first-child {
+  color: #777;
+}
+
+.detail-row span:last-child {
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+button.primary {
+  background: #247fe5;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.brand {
+  margin-top: auto;
+  text-align: center;
+  padding: 30px 0 5px;
+  font-size: 32px;
+  color: #3822a4;
+  font-weight: bold;
+}
+
+/* Popup */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0009;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 10;
+}
+
+.overlay.show {
+  display: flex;
+}
+
+.popup {
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.popup-header {
+  background: #3822a4;
+  color: white;
+  padding: 16px;
+  font-weight: bold;
+}
+
+.announcement {
+  background: #10cf55;
+  color: white;
+  padding: 13px;
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.popup-image {
+  background: #17162c;
+  color: white;
+  padding: 30px 15px;
+}
+
+.popup-image .bus {
+  font-size: 55px;
+}
+
+.popup-image h2 {
+  margin-top: 10px;
+  font-size: 25px;
+}
+
+.popup p {
+  padding: 22px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.popup button {
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+/* Responsive */
+@media(max-width:400px) {
+  .welcome-title { font-size: 35px; }
+  .service { font-size: 21px; }
+  .qr { width: 200px; height: 200px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<section class="screen active" id="welcome">
+
+  <h1 class="welcome-title">Welcome To<br>TCS eTMS</h1>
+
+  <h2>PLEASE SELECT YOUR SERVICE</h2>
+
+  <button class="service" onclick="openAnnouncement()">
+    <span>🚌</span> Bus Services
+  </button>
+
+  <button class="service" onclick="alert('Cab Services coming soon')">
+    <span>🚘</span> Cab Services
+  </button>
+
+  <button class="service" onclick="alert('Geocode service coming soon')">
+    <span>📍</span> Geocode Yourself
+  </button>
+
+</section>
+
+<!-- PAGE 2: BUS PASS -->
+<section class="screen" id="busPass">
+
+  <header>☰ &nbsp; Digital Bus Pass</header>
+
+  <div class="route">
+    <h3>Vasai W Near Gurudwara</h3>
+    <h3>⇅</h3>
+    <h3>TCS Olympus</h3>
+    <p>Office In - 07:45 &nbsp;&nbsp; Office Out - 18:45</p>
+  </div>
+
+  <div class="card">
+
+    <h2>Confirmed Bus Pass</h2>
+
+    <div class="qr" id="qr"></div>
+
+    <button class="primary" onclick="showDetails()">
+      View Details
+    </button>
+
+  </div>
+
+  <div class="brand">TCS</div>
+
+</section>
+
+<!-- PAGE 3: DETAILS -->
+<section class="screen" id="details">
+
+  <header>☰ &nbsp; Digital Bus Pass</header>
+
+  <div class="route">
+    <h3>Vasai W Near Gurudwara</h3>
+    <h3>⇅</h3>
+    <h3>TCS Olympus</h3>
+    <p>Office In - 07:45 &nbsp;&nbsp; Office Out - 18:45</p>
+  </div>
+
+  <div class="details">
+
+    <h2>Confirmed Bus Pass</h2>
+
+    <div class="detail-row">
+      <span>Name</span>
+      <span>Demo Employee</span>
+    </div>
+
+    <div class="detail-row">
+      <span>Employee ID</span>
+      <span>1234567</span>
+    </div>
+
+    <div class="detail-row">
+      <span>Bus Stop Name</span>
+      <span>Vasai W Near Gurudwara</span>
+    </div>
+
+    <div class="detail-row">
+      <span>Route Type</span>
+      <span>Both</span>
+    </div>
+
+    <div class="detail-row">
+      <span>Start Date</span>
+      <span>1st Nov, 2026</span>
+    </div>
+
+    <div class="detail-row">
+      <span>End Date</span>
+      <span>30th Nov, 2026</span>
+    </div>
+
+    <div class="detail-row">
+      <span>Route</span>
+      <span>Vasai W Near Gurudwara To TCS Olympus And Return Via Ghodbunder Road</span>
+    </div>
+
+    <button class="primary" onclick="showBusPass()">
+      View QR
+    </button>
+
+  </div>
+
+  <div class="brand">TCS</div>
+
+</section>
+
+<!-- ANNOUNCEMENT POPUP -->
+<div class="overlay" id="popup">
+
+  <div class="popup">
+
+    <div class="popup-header">
+      Vasai W Near Gurudwara
+    </div>
+
+    <div class="announcement">
+      📢 Announcement
+    </div>
+
+    <div class="popup-image">
+      <div class="bus">🚌</div>
+      <h2>Don't miss your ride!</h2>
+    </div>
+
+    <p>
+      Bus Pass bookings must be made only in advance.
+      Booking window opens at 10:30 AM on the 20th
+      and closes at 11:59 PM on the 25th of every month.
+    </p>
+
+    <button class="primary" onclick="closeAnnouncement()">
+      OK
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* Screen navigation */
+
+function showScreen(id) {
+
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  window.scrollTo(0,0);
+}
+
+/* Popup */
+
+function openAnnouncement() {
+  document.getElementById("popup").classList.add("show");
+}
+
+function closeAnnouncement() {
+  document.getElementById("popup").classList.remove("show");
+  showScreen("busPass");
+}
+
+/* Details page */
+
+function showDetails() {
+  showScreen("details");
+}
+
+/* Back to QR page */
+
+function showBusPass() {
+  showScreen("busPass");
+}
+
+/* Generate demo QR code */
+
+document.getElementById("qr").innerHTML =
+  `<img class="qr"
+  src="https://api.qrserver.com/v1/create-qr-code/?size=230x230&data=DEMO-BUS-PASS-NOT-VALID-FOR-TRAVEL"
+  alt="Demo QR Code">`;
+
+</script>
+
+</body>
+</html>
